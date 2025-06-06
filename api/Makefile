@@ -5,11 +5,11 @@ BINARY=bin/commerce-api
 
 # Run the application
 run:
-	go run main.go
+	go run cmd/main.go
 
 # Build the binary
 build:
-	go build -o $(BINARY) main.go
+	go build -o $(BINARY) cmd/main.go
 
 # Run unit tests
 test:
