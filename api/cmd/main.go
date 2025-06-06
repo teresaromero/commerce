@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"ecommerce-api/internal/config"
+	"ecommerce-api/internal/router"
 	"log"
 	"net/http"
 	"os"
@@ -19,6 +21,9 @@ func main() {
 	}
 
 	engine := gin.Default()
+
+	// load routes
+	router.Init(engine, cfg.JwtSecret)
 
 	srv := &http.Server{
 		Addr:    ":8080",
