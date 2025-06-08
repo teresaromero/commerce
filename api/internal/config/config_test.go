@@ -17,9 +17,11 @@ func TestLoadConfig(t *testing.T) {
 			name: "success",
 			envVars: map[string]string{
 				"JWT_SECRET": "test-secret",
+				"DB_URL":     "postgres://user:password@localhost:5432/dbname",
 			},
 			want: &Config{
 				JwtSecret: []byte("test-secret"),
+				DbURL:     "postgres://user:password@localhost:5432/dbname",
 			},
 			wantError: false,
 		},

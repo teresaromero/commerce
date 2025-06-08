@@ -10,6 +10,7 @@ type SecretType []byte
 
 type Config struct {
 	JwtSecret SecretType `env:"JWT_SECRET,required"`
+	DbURL     string     `env:"DB_URL,required"`
 }
 
 func LoadConfig() (*Config, error) {
