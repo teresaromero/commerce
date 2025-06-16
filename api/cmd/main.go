@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"ecommerce-api/internal/config"
+	"ecommerce-api/internal/db"
 	"ecommerce-api/internal/router"
 	"log"
 	"net/http"
@@ -18,6 +19,11 @@ func main() {
 	cfg, err := config.LoadConfig()
 	if err != nil {
 		log.Fatalf("Error loading config: %v", err)
+	}
+
+	dbConn, err := db.Init(cfg.DbURL)
+	if err != nil {
+		log.Fatalf("Error initializing database: %v", err)
 	}
 
 	engine := gin.Default()
@@ -47,6 +53,10 @@ func main() {
 	log.Println("Gracefully Shutdown Server ...")
 
 	// TODO: add any cleanup tasks here, like closing database connections
+	if err := dbConn.Close(); err != nil {
+		log.Println("Error closing database connection:", err)
+	}
+
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Println("Server Shutdown:", err)
 	}

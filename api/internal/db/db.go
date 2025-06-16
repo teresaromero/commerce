@@ -22,3 +22,11 @@ func Init(dbURL string) (*Database, error) {
 
 	return &Database{db: db}, nil
 }
+
+func (d *Database) Close() error {
+	sqlDB, err := d.db.DB()
+	if err != nil {
+		return err
+	}
+	return sqlDB.Close()
+}
